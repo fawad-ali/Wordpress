@@ -1,0 +1,3 @@
+•	Use Plugin (Mailpoet) for indexing emails and Recent post
+•	You have to use SMTP as most mails will go in spam.  First check if your Hosting server allow SMTP, if yes then Gmail and other servers will be the best idea but first you have to check their Daily email limit 
+•	Use elastic Email server (https://elasticemail.com/) to Host your Email, it will make it sure that your email go in inbox.
