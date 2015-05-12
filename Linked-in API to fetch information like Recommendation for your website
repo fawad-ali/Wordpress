@@ -1,0 +1,49 @@
+Linked-in Recommendation
+1.	For Wordpress we have to install a plugin (wp-linked)
+2.	Or we can use API given by Linked (but it’s pretty mess)
+3.	We can call all the fields that we wants to use any where in wp-linkedin.php file (/content/plugin/wp-linkedin)
+4.	So first we will copy the desired template from (/content/plugin/wp-linkedin/templete)
+5.	In our case we are using recommendation so we will copy recommendation.php from template folder to a new folder (/content/linkedin) 
+6.	Modify th recommendation.php file according to need (According to Layout HTML)
+7.	Define the required fields that we wants to use (as given by Linkedin https://developer.linkedin.com/docs/fields)
+8.	We will define these fields in wp-linkedin.php file from plugin directory As(define('LINKEDIN_FIELDS_RECOMMENDATIONS', 'recommendations-received:(recommendation-text,recommender:(first-name,last-name,public-profile-url,headline))');
+9.	Then we can echo these fields as given in recommendation.php file that we have copied in linkedin directory.
+
+
+
+
+
+
+recommendation.php
+<?php
+	wp_enqueue_script('responsive-scrollable');
+	shuffle($recommendations);
+?>
+<div>
+	<?php foreach ($recommendations as $recommendation): ?>
+	<div class="row recommandation-testimonial">
+		
+			 <div class="col-md-1">
+                        <img src="<?php echo $recommendation->recommender->pictureUrl; ?>" alt="" width="68px" height="68x" border="0">
+                    	</div>
+			<div class="col-md-11 testimonial">
+                            <h4 class="recommender><?php if (isset($recommendation->recommender->publicProfileUrl)): ?>
+					<a href="<?php echo esc_url($recommendation->recommender->publicProfileUrl); ?> target="_blank">
+                                                    <?php echo $recommendation->recommender->firstName; ?>
+						<?php echo $recommendation->recommender->lastName; ?></a>
+					<?php else: ?>
+					<?php _e('Anonymous', 'wp-linkedin'); ?>
+				<?php endif; ?></h4>
+				<span><p><?php echo $recommendation->recommender->headline; ?></p><img class="pull-right" src="<?php echo get_template_directory_uri() ?>/images/scrol.png" alt=""><img class="pull-right" src="<?php echo get_template_directory_uri() ?>/images/before.png" alt=""></span>
+				<h5><span><img src="<?php echo get_template_directory_uri() ?>/images/testi.png"></span><?php echo nl2br(wp_linkedin_excerpt($recommendation->recommendationText, $length)); ?></h5>
+				
+                        </iv>
+		<?php  endforeach; ?>
+		</div>
+	</div>
+<?php if (LI_DEBUG): ?>
+<!--
+<?php echo json_encode($recommendations); ?>
+-->
+<?php endif; ?>
+</div>
